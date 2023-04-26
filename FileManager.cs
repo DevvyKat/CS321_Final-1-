@@ -33,20 +33,15 @@ namespace CS321_Final_1_
         }
 
         public static void LoadFile(Graphics g, PictureBox pictureBox, Stack<Bitmap> redoStack, Stack<Bitmap> undoStack)
-
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "PNG files (*.png)|*.png|All files (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Save the current file path
                 string currentFilePath = openFileDialog.FileName;
-
-                // Load the image from the file
                 Bitmap loadedBm = new Bitmap(currentFilePath);
 
-                // Clear the redo stack
                 redoStack.Clear();
 
                 // Push the current state of the bitmap onto the undo stack
@@ -62,11 +57,8 @@ namespace CS321_Final_1_
                 {
                     undoStack.Push(new Bitmap(loadedBm));
                 }
-
                 // Copy the loaded image to the current bitmap
                 g.DrawImage(loadedBm, 0, 0);
-
-                // Refresh the picture box
                 pictureBox.Refresh();
             }
         }
@@ -75,11 +67,6 @@ namespace CS321_Final_1_
         {
             Form1 newForm = new Form1();
             newForm.Show();
-        }
-
-        public static void ExportToSvg(string filePath)
-        {
-            
         }
     }
 }
