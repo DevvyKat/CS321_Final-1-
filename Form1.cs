@@ -145,13 +145,9 @@ namespace CS321_Final_1_
         {
             if (undoStack.Count > 1)
             {
-                // Pop the latest state of the bitmap from the undo stack
                 redoStack.Push(undoStack.Pop());
-                // Get the previous state of the bitmap from the undo stack
                 Bitmap prevBm = undoStack.Peek();
-                // Copy the previous state of the bitmap to the current bitmap
                 g.DrawImage(prevBm, 0, 0);
-                // Refresh the picture box
                 pictureBox.Refresh();
             }
         }
@@ -199,29 +195,20 @@ namespace CS321_Final_1_
             // Create an instance of SvgDocument
             SvgDocument svg = new SvgDocument();
 
-            // Set the dimensions of the SVG to match the picture box
             svg.Width = pictureBox.Width;
             svg.Height = pictureBox.Height;
-
-            // Create a rectangle with the dimensions of the picture box
             SvgRectangle rect = new SvgRectangle();
             rect.Fill = new SvgColourServer(Color.White);
-
-            // Add the rectangle to the SVG
             svg.Children.Add(rect);
 
             // Create a bitmap from the picture box
             Bitmap bmp = new Bitmap(pictureBox.Width, pictureBox.Height);
             pictureBox.DrawToBitmap(bmp, pictureBox.Bounds);
-
-            // Convert the bitmap to a Base64 string
             string base64 = Convert.ToBase64String(ImageToByteArray(bmp));
 
             // Create an SVG image element from the Base64 string
             SvgImage svgImg = new SvgImage();
             svgImg.Href = $"data:image/png;base64,{base64}";
-
-            // Add the image to the SVG
             svg.Children.Add(svgImg);
 
             // Save the SVG to a file
@@ -244,7 +231,7 @@ namespace CS321_Final_1_
             }
         }
 
-        // Helper method to convert a bitmap to a byte array
+        // Helper method bitmap to a byte array
         private byte[] ImageToByteArray(Image img)
         {
             using (MemoryStream ms = new MemoryStream())
